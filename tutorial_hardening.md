@@ -85,8 +85,13 @@ AllowUsers meu_usuario@192.168.1.*
 AllowUsers meu_grupo
 ```
 
-salve o arquivo e reinicie o ssh para aplicar as novas regras:
+### Auditoria
+
+```bash
+LogLevel VERBOSE
+```
  
+salve o arquivo e reinicie o ssh para aplicar as novas regras:
 
 ```bash
 sudo service ssh restart
