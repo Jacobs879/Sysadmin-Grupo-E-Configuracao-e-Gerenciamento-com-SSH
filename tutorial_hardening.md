@@ -41,51 +41,51 @@ sudo vim /etc/ssh/sshd_config
 Localize e altere as seguintes configurações para aplicar as regras de segurança. (Remova o símbolo # no início da linha, caso exista).
 
 ### 1. Redução da Superfície de Ataque
-### Altera a porta padrão para evitar scripts automatizados e conflitos com o Windows
+#### Altera a porta padrão para evitar scripts automatizados e conflitos com o Windows
 
 ```bash
 Port 2222
 ```
 
 ### 2. Gerenciamento de Identidade e Acesso
-### Bloqueia o acesso direto do superusuario (root)
+#### Bloqueia o acesso direto do superusuario (root)
 
 ```bash
 PermitRootLogin no
 ```
 
 ### 3. Autenticação Forte
-### Desativa a autenticação por palavra-passe (vulnerável a brute-force)
+#### Desativa a autenticação por palavra-passe (vulnerável a brute-force)
 
 ```bash
 PasswordAuthentication no
 ```
 
-### Exige autenticação por chaves criptográficas
+#### Exige autenticação por chaves criptográficas
 
 ```bash
 PubkeyAuthentication yes
 ```
 
-### Permite acesso somente de ips locais
+#### Permite acesso somente de ips locais
 
 ```bash
 ListenAddress 192.168.1.50
 ```
 
-### Permite apenas o acesso do meu_usuario
+#### Permite apenas o acesso do meu_usuario
 
 ```bash
 AllowUsers meu_usuario@192.168.1.*
 ```
 
-### Permite apenas o acesso de um grupo
+#### Permite apenas o acesso de um grupo
 
 ```bash
 AllowUsers meu_grupo
 ```
 
-### Auditoria
+#### Auditoria
 
 ```bash
 LogLevel VERBOSE
