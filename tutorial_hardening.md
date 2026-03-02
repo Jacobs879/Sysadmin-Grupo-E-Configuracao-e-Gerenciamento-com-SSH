@@ -133,7 +133,7 @@ Tente acessar ao servidor utilizando o usuário root.
 ssh root@localhost -p 2222
 ```
 
-    Resultado Esperado: Conexão negada imediatamente. No log do servidor, verá o log da tentativa bloqueada, provando que a diretiva PermitRootLogin no está ativa.
+Resultado Esperado: Conexão negada imediatamente. No log do servidor, verá o log da tentativa bloqueada, provando que a diretiva PermitRootLogin no está ativa.
 
 ### Teste 2: Bloqueio de ataques de dicionário (Palavra-passe)
 
