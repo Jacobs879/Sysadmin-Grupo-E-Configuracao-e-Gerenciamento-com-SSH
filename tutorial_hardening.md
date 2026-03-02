@@ -76,7 +76,13 @@ ListenAddress 192.168.1.50
 ### Permite apenas o acesso do meu_usuario
 
 ```bash
-AllowUsers alexmof@192.168.1.*
+AllowUsers meu_usuario@192.168.1.*
+```
+
+### Permite apenas o acesso de um grupo
+
+```bash
+AllowUsers meu_grupo
 ```
 
 salve o arquivo e reinicie o ssh para aplicar as novas regras:
