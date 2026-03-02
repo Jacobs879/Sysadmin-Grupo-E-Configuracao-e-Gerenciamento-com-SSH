@@ -2,7 +2,7 @@
 
 Este tutorial demonstra como aplicar práticas de *hardening* (endurecimento de segurança) num servidor SSH e como validar a eficácia dessas configurações na prática. 
 
-Para facilitar a reprodução e evitar alterações nas configurações principais da máquina do usuário, este laboratório utiliza o **WSL (Windows Subsystem for Linux)** a atuar como "Servidor", enquanto o Windows (através do PowerShell) atuará como a máquina "Cliente" ou "Atacante".
+Para facilitar a reprodução e evitar alterações nas configurações principais da máquina do usuário, este laboratório utiliza o **WSL (Windows Subsystem for Linux)** atuando como "Servidor", enquanto o Windows (através do PowerShell) atuará como a máquina "Cliente" ou "Atacante".
 
 ## Pré-requisitos
 * Sistema operacional Windows com WSL instalado.
@@ -87,7 +87,7 @@ Abra uma nova janela do PowerShell no Windows. Vamos gerar um par de chaves crip
 ssh-keygen
 ```
 
-Agora, precisamos de exportar a chave pública recém-criada para o servidor (WSL), autorizando o nosso acesso.
+Agora, precisamos exportar a chave pública recém-criada para o servidor (WSL), autorizando o nosso acesso.
 
 Nota: O comando abaixo copia a chave diretamente. Altere se necessário caso o seu usuário no WSL seja diferente do usuario do Windows.
   
@@ -110,13 +110,13 @@ ssh-copy-id -i ~/.ssh/id_ed25519 seu_usuario@localhost -p 2222
 
 ## Passo 4: Demonstração e Validação (O Teste)
 
-Para provar que o hardening é eficaz, divida o seu ecrã em duas partes:
+Para provar que o hardening é eficaz, divida a sua tela em duas partes:
 
     À esquerda (PowerShell): O terminal do cliente/atacante.
 
     À direita (WSL): O terminal do servidor.
 
-No terminal do servidor (WSL), inicie a monitorização dos registos de autenticação em tempo real:
+No terminal do servidor (WSL), inicie a monitorização dos logs de autenticação em tempo real:
  
 
 ```bash
@@ -126,18 +126,18 @@ sudo tail -f /var/log/auth.log
 No terminal do cliente (PowerShell), execute os seguintes testes:
 ### Teste 1: Bloqueio do usuário Root
 
-Tente aceder ao servidor utilizando o usuário root.
+Tente acessar ao servidor utilizando o usuário root.
   
 
 ```bash
 ssh root@localhost -p 2222
 ```
 
-    Resultado Esperado: Conexão negada imediatamente. No log do servidor, verá o registo da tentativa bloqueada, provando que a diretiva PermitRootLogin no está ativa.
+    Resultado Esperado: Conexão negada imediatamente. No log do servidor, verá o log da tentativa bloqueada, provando que a diretiva PermitRootLogin no está ativa.
 
 ### Teste 2: Bloqueio de ataques de dicionário (Palavra-passe)
 
-Tente aceder com o seu usuário legítimo, mas forçando o método de palavra-passe (simulando um atacante sem a chave criptográfica). Substitua seu_usuario pelo seu nome de usuário no Linux.
+Tente acessar com o seu usuário legítimo, mas forçando o método de palavra-passe (simulando um atacante sem a chave criptográfica). Substitua seu_usuario pelo seu nome de usuário no Linux.
   
 
 ```bash
