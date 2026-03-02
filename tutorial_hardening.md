@@ -144,7 +144,7 @@ Tente acessar com o seu usuário legítimo, mas forçando o método de palavra-p
 ssh -o PubkeyAuthentication=no seu_usuario@localhost -p 2222
 ```
 
-    Resultado Esperado: A conexão falha com a mensagem Permission denied (publickey). O servidor recusa-se a pedir a palavra-passe, mitigando totalmente ataques de força bruta, validando o PasswordAuthentication no.
+Resultado Esperado: A conexão falha com a mensagem Permission denied (publickey). O servidor recusa-se a pedir a palavra-passe, mitigando totalmente ataques de força bruta, validando o PasswordAuthentication no.
 
 ### Teste 3: Acesso Seguro Legítimo
 
@@ -155,7 +155,7 @@ Faça a ligação padrão, que utilizará automaticamente a chave Ed25519 previa
 ssh seu_usuario@localhost -p 2222
 ```
 
-    Resultado Esperado: Acesso concedido instantaneamente de forma segura. O log do servidor registará o sucesso da autenticação via chave pública.
+Resultado Esperado: Acesso concedido instantaneamente de forma segura. O log do servidor registará o sucesso da autenticação via chave pública.
 
 
 ***
