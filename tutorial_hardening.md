@@ -67,6 +67,18 @@ PasswordAuthentication no
 PubkeyAuthentication yes
 ```
 
+### Permite acesso somente de ips locais
+
+```bash
+ListenAddress 192.168.1.50
+```
+
+### Permite apenas o acesso do meu_usuario
+
+```bash
+AllowUsers alexmof@192.168.1.*
+```
+
 salve o arquivo e reinicie o ssh para aplicar as novas regras:
  
 
