@@ -2,7 +2,7 @@
 
 Este tutorial demonstra como aplicar práticas de *hardening* (endurecimento de segurança) num servidor SSH e como validar a eficácia dessas configurações na prática. 
 
-Para facilitar a reprodução e evitar alterações nas configurações principais da máquina do utilizador, este laboratório utiliza o **WSL (Windows Subsystem for Linux)** a atuar como "Servidor", enquanto o Windows (através do PowerShell) atuará como a máquina "Cliente" ou "Atacante".
+Para facilitar a reprodução e evitar alterações nas configurações principais da máquina do usuário, este laboratório utiliza o **WSL (Windows Subsystem for Linux)** a atuar como "Servidor", enquanto o Windows (através do PowerShell) atuará como a máquina "Cliente" ou "Atacante".
 
 ## Pré-requisitos
 * Sistema operacional Windows com WSL instalado.
@@ -23,7 +23,7 @@ sudo apt install openssh-server
 
 Antes de qualquer alteração, é uma boa prática criar uma cópia de segurança da configuração original.
 
-### Criar backup do ficheiro sshd_config
+### Criar backup do arquivo sshd_config
 ```bash
 sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original
 ```
@@ -48,7 +48,7 @@ Port 2222
 ```
 
 ### 2. Gerenciamento de Identidade e Acesso
-### Bloqueia o acesso direto do superutilizador (root)
+### Bloqueia o acesso direto do superusuario (root)
 
 ```bash
 PermitRootLogin no
@@ -81,7 +81,7 @@ sudo service ssh restart
 Abra uma nova janela do PowerShell no Windows. Vamos gerar um par de chaves criptográficas modernas (Ed25519) para o acesso legítimo.
   
 
-### Gerar a chave Ed25519
+### Gerar a chave Ed25519 (padrão)
 
 ```bash
 ssh-keygen
@@ -89,13 +89,21 @@ ssh-keygen
 
 Agora, precisamos de exportar a chave pública recém-criada para o servidor (WSL), autorizando o nosso acesso.
 
-Nota: O comando abaixo copia a chave diretamente. Altere se necessário caso o seu utilizador no WSL seja diferente do utilizador do Windows.
+Nota: O comando abaixo copia a chave diretamente. Altere se necessário caso o seu usuário no WSL seja diferente do usuario do Windows.
   
 
-### Enviar a chave pública para o ficheiro authorized_keys no WSL
+### Enviar a chave pública para o arquivo authorized_keys no WSL
+
+#### No Windows
 
 ```bash
-cat ~/.ssh/id_ed25519.pub | wsl -e sh -c "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+Get-Content ~/.ssh/id_ed25519.pub | ssh seu_usuario@localhost -p 2222 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+#### No Linux
+
+```bash
+ssh-copy-id -i ~/.ssh/id_ed25519 seu_usuario@localhost -p 2222
 ```
 
 ---
@@ -116,9 +124,9 @@ sudo tail -f /var/log/auth.log
 ```
 
 No terminal do cliente (PowerShell), execute os seguintes testes:
-### Teste 1: Bloqueio do utilizador Root
+### Teste 1: Bloqueio do usuário Root
 
-Tente aceder ao servidor utilizando o utilizador root.
+Tente aceder ao servidor utilizando o usuário root.
   
 
 ```bash
@@ -129,11 +137,11 @@ ssh root@localhost -p 2222
 
 ### Teste 2: Bloqueio de ataques de dicionário (Palavra-passe)
 
-Tente aceder com o seu utilizador legítimo, mas forçando o método de palavra-passe (simulando um atacante sem a chave criptográfica). Substitua seu_utilizador_wsl pelo seu nome de utilizador no Linux.
+Tente aceder com o seu usuário legítimo, mas forçando o método de palavra-passe (simulando um atacante sem a chave criptográfica). Substitua seu_usuario pelo seu nome de usuário no Linux.
   
 
 ```bash
-ssh -o PubkeyAuthentication=no seu_utilizador_wsl@localhost -p 2222
+ssh -o PubkeyAuthentication=no seu_usuario@localhost -p 2222
 ```
 
     Resultado Esperado: A conexão falha com a mensagem Permission denied (publickey). O servidor recusa-se a pedir a palavra-passe, mitigando totalmente ataques de força bruta, validando o PasswordAuthentication no.
@@ -144,7 +152,7 @@ Faça a ligação padrão, que utilizará automaticamente a chave Ed25519 previa
   
 
 ```bash
-ssh seu_utilizador_wsl@localhost -p 2222
+ssh seu_usuario@localhost -p 2222
 ```
 
     Resultado Esperado: Acesso concedido instantaneamente de forma segura. O log do servidor registará o sucesso da autenticação via chave pública.
@@ -152,4 +160,3 @@ ssh seu_utilizador_wsl@localhost -p 2222
 
 ***
 
-Este ficheiro cobre todos os aspetos técnicos e a validação prática. Se a tua equipa
