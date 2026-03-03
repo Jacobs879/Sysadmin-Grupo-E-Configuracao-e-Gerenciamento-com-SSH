@@ -1,8 +1,8 @@
 # Instruções para Execução da Simulação Cliente-Servidor via SSH
 
-Este documento detalha os procedimentos necessários para executar a simulação prática de automação e administração remota. Presume-se que o terminal esteja aberto no diretório `cliente-servidor` e que os arquivos `Dockerfile`, `relatorio_saude.sh` e `servidores.txt` já estejam presentes no local.
+Este documento detalha os procedimentos necessários para executar a simulação prática de automação e administração remota. Presume-se que o terminal esteja aberto no diretório `cliente-servidor` e que os arquivos `Dockerfile`, `relatorio_saude.sh` e `servidores.txt` já estejam presentes no local. Além do mais, considera-se também que o programa esteja sendo executado em um sistema Linux com Docker instalado. Assim, a execução em sala foi feita através do Ubunto, cujo o Docker pode ser instalado pelo seguinte link: `https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-pt`.
 
-Siga os passos abaixo rigorosamente na ordem apresentada.
+Dado o exposto, por favor, siga os passos abaixo na ordem apresentada.
 
 ## 1. Geração e Configuração da Identidade SSH
 
