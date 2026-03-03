@@ -75,3 +75,18 @@ Execute o script para extrair o relatório de saúde do servidor alvo:
 ```
 
 O terminal exibirá imediatamente as métricas de uso de CPU, memória RAM e espaço em disco do servidor remoto, demonstrando a eficácia do uso do protocolo SSH para tarefas de automação em escala.
+
+## Observação: Limpeza do Ambiente
+
+Após a finalização da atividade, execute o comando abaixo para remover o contêiner criado:
+
+```bash
+docker rm -f meu_servidor
+
+```
+Por fim, verifique o status com:
+
+```bash
+docker ps
+
+```
